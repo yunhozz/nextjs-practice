@@ -5,23 +5,21 @@
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState } from "react"
+import styles from "../styles/navigation.module.css"
 
 export default () => {
     const path = usePathname()
     const [count, setCount] = useState(0)
     return (
-        <nav>
+        <nav className={styles.nav}>
             <ul>
                 <li>
                     <Link href="/">Home</Link>
-                    {path === "/" ? " (Active)" : ""}
+                    {path === "/" ? "❤️" : ""}
                 </li>
                 <li>
                     <Link href="/about-us">About Us</Link>
-                    {path === "/about-us" ? " (Active)" : ""}
-                </li>
-                <li>
-                    <button onClick={() => setCount((c) => c + 1)}>{count}</button>
+                    {path === "/about-us" ? "❤️" : ""}
                 </li>
             </ul>
         </nav>

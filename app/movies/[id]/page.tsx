@@ -41,3 +41,15 @@ export default async ({ params, searchParams }: { params: Promise<Params>; searc
         </div>
     )
 }
+
+/*
+Promise.all() approach:
+- Blocks rendering until both requests complete
+- Shows all content at once
+- Better for dependent data
+
+Suspense approach (current):
+- Allows progressive loading
+- Shows loading states independently
+- Better user experience for independent data
+ */
