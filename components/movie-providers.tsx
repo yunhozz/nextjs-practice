@@ -1,6 +1,6 @@
-import { API_URL } from "../app/(home)/page"
 import styles from "../styles/movie-providers.module.css"
 import Link from "next/link"
+import { API_URL } from "../app/constants"
 
 async function getProviders(id: string) {
     return fetch(`${API_URL}/${id}/providers`).then((response) => response.json())
