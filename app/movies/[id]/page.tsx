@@ -1,26 +1,30 @@
 import { Metadata } from "next"
-import MovieInfo from "../../../components/movie-info"
+import MovieInfo, { getMovie } from "../../../components/movie-info"
 import MovieVideos from "../../../components/movie-videos"
 import { Suspense } from "react"
-import movieInfo from "../../../components/movie-info"
-import movieVideos from "../../../components/movie-videos"
+import MovieProviders from "../../../components/movie-providers"
+import MovieCredits from "../../../components/movie-credits"
 
-export const metadata: Metadata = {
-    title: "Movie Details",
+export async function generateMetadata({ params }: { params: Promise<TParams> }): Promise<Metadata> {
+    const { id } = await params
+    const movie = await getMovie(id)
+    return {
+        title: movie.title,
+    }
 }
 
-type Params = {
+type TParams = {
     id: string
     [key: string]: unknown
 }
 
-type SearchParams = {
+type TSearchParams = {
     region: string
     page: number
     [key: string]: unknown
 }
 
-export default async ({ params, searchParams }: { params: Promise<Params>; searchParams: Promise<SearchParams> }) => {
+export default async ({ params, searchParams }: { params: Promise<TParams>; searchParams: Promise<TSearchParams> }) => {
     const [{ id }, { region, page }] = await Promise.all([params, searchParams])
 
     console.log(`Movie ID=${id}, Region=${region}, Page=${page}`)
@@ -29,7 +33,6 @@ export default async ({ params, searchParams }: { params: Promise<Params>; searc
 
     return (
         <div>
-            <h2>Movie Detail Page</h2>
             {/*{movie}*/}
             {/*{videos}*/}
             <Suspense fallback={<h3>Loading movie info...</h3>}>
